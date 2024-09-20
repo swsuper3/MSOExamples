@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicApp
 {
-    public enum Genre { Rock, Dance, Pop, Jazz, Metal, Classical }
+    public enum Genre { Rock, Dance, Pop, Jazz, Metal, Classical, None }
 
     public class Song
     {

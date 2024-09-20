@@ -23,4 +23,29 @@ namespace MusicApp
         }
 
     }
+
+    public class CleverRecommender : SongRecommender
+    {
+        private SmartRecommender smartRecommender;
+
+        int age;
+        Continent continent;
+
+        public CleverRecommender(IEnumerable<Song> songDB, int age, Continent continent) : base(songDB)
+        {
+            smartRecommender = new SmartRecommender(songDB);
+            this.age = age;
+            this.continent = continent;
+        }
+
+        public override Song Suggest(IList<Song> playlist)
+        {
+            Tuple<string, string> outputSong = this.smartRecommender.DoSmartRecommendation(age, continent);
+
+            return new Song(outputSong.Item1, new Artist(outputSong.Item2), Genre.None);
+
+        }
+
+
+    }
 }
