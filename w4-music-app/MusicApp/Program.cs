@@ -22,10 +22,30 @@ namespace MusicApp
             p.AddSong(new Song("Snap", new Artist("Rosa Linn"), Genre.Rock));
 
             // Load preferences
-            var recommendMode = RecommenderMode.KnownArtist;
+            RecommenderMode recommendMode = RecommenderMode.Random;
+
+            SongRecommender songRecommender;
+
+            switch (recommendMode)
+            {
+                case RecommenderMode.KnownArtist:
+                    songRecommender = new KnownArtistRecommender(songDB);
+                    break;
+                case RecommenderMode.Random:
+                    songRecommender = new RandomRecommender(songDB);
+                    break;
+                case RecommenderMode.Wildcard:
+                    songRecommender = new WildcardRecommender(songDB);
+                    break;
+                default:
+                    songRecommender = new RandomRecommender(songDB);
+                    break;
+            }
+
+
             
             // Start playlist
-            p.Start(recommendMode);
+            p.Start(songRecommender);
 
             //await Spotify.SearchCodeArtists();
             //await Spotify.SearchPatternTitles();

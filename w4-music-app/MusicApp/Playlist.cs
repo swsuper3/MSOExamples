@@ -15,7 +15,7 @@ namespace MusicApp
             list.Add(s); 
         }
 
-        public void Start(RecommenderMode recMode)
+        public void Start(SongRecommender rec)
         {
             Console.WriteLine("*Playlist started*");
 
@@ -24,23 +24,7 @@ namespace MusicApp
                 s.Play();
             }
 
-            var rec = new SongRecommender(SongDB.LoadSongDB());
-            Song recSong;
-            switch (recMode)
-            {
-                case RecommenderMode.Random:
-                    recSong = rec.SuggestRandom(list);
-                    break;
-                case RecommenderMode.Wildcard:
-                    recSong = rec.SuggestWildcard(list);
-                    break;
-                case RecommenderMode.KnownArtist:
-                    recSong = rec.SuggestFromKnownArtist(list);
-                    break;
-                default:
-                    recSong = rec.SuggestRandom(list);
-                    break;
-            }
+            Song recSong = rec.Suggest(list);
             Console.WriteLine("*Playlist finished*");
             recSong.Play();
         }
