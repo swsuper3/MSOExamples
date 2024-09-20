@@ -19,6 +19,7 @@ namespace MusicApp
         {
             Console.WriteLine("*Playlist started*");
 
+            //Fiddle with the play order...
             foreach (Song s in list)
             {
                 s.Play();
@@ -29,6 +30,20 @@ namespace MusicApp
             recSong.Play();
         }
 
+    }
+
+    public abstract class PlaylistOrderBy
+    {
+        public abstract List<Song> OrderSongList(List<Song> list);
+    }
+
+    public class OrderByArtistName : PlaylistOrderBy
+    {
+        public override List<Song> OrderSongList(List<Song> list)
+        {
+            //do something...
+            return list;
+        }
     }
 }
 
