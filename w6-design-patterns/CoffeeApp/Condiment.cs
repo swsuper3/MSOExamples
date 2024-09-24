@@ -6,47 +6,49 @@ using System.Threading.Tasks;
 
 namespace CoffeeApp
 {
-    abstract class Condiment
+    abstract class Condiment : Beverage
     {
-        protected Condiment()
-        {
+        protected Beverage beverage;
 
+        protected Condiment(Beverage beverage)
+        {
+            this.beverage = beverage;
         }
 
-        public abstract string Make();
-        public abstract decimal Price { get; }
     }
 
     class Milk : Condiment
     {
         public int Quantity { get; set; }
-        public Milk(int q = 1) : base()
+        public Milk(Beverage beverage, int q = 1) : base(beverage)
         {
             Quantity = q;
         }
 
         public override string Make()
         {
-            return " + milk";
+            return this.beverage.Make() + " + milk";
         }
 
         public override decimal Price
         {
-            get => 0.50m;
+            get => 0.50m * Quantity + this.beverage.Price;
         }
     }
 
     class Cacao : Condiment
     {
+
+        public Cacao(Beverage beverage) : base(beverage) { }
         
         public override string Make()
         {
-            return " + cacao";
+            return this.beverage.Make() + " + cacao";
         }
 
         public override decimal Price
         {
-            get => 0.25m;
+            get => 0.25m + this.beverage.Price;
         }
     }
 
@@ -54,18 +56,18 @@ namespace CoffeeApp
     class Syrup : Condiment
     {
         private SyrupType _syrupType;
-        public Syrup(SyrupType type) : base()
+        public Syrup(Beverage beverage, SyrupType type) : base(beverage)
         {
             _syrupType = type;
         }
         public override string Make()
         {
-            return $"{_syrupType} syrup ";
+            return this.beverage.Make() + $"+ {_syrupType} syrup ";
         }
 
         public override decimal Price
         {
-            get => 0.55m;
+            get => 0.55m + this.beverage.Price;
         }
     }
 }

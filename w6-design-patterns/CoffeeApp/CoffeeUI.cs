@@ -29,15 +29,15 @@ namespace CoffeeApp
             };
             if (milkBox.Checked)
             {
-                
+                order = new Milk(order);
             }
             if (syrupBox1.Checked)
             {
-                
+                order = new Syrup(order, SyrupType.Hazelnut);
             }
             if (cacaoBox.Checked)
             {
-                
+                order = new Cacao(order);
             }
             showOrder(order);
         }
